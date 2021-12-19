@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {% block title %}
+        <title>Tin tức, mua bán, cho thuê nhà đất, thể thao, giải trí.</title>
+    {% endblock %}
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href={% static 'img/favicon.ico' %} rel="icon">
+    <link href="{% static 'img/favicon -copy.png' %}" rel="apple-touch-icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href={% static 'lib/owlcarousel/assets/owl.carousel.min.css' %} rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href={% static 'css/style.css' %} rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        jQuery(function ($) {
+            let path = window.location.href;
+            $('.mn a').each(function () {
+                if (this.href === path) {
+                    $(this).addClass('active')
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+{% url 'Do_an_01:index' as index %}
+{% url 'Do_an_01:contact' as contact %}
+{% url 'Do_an_01:single' as single %}
+{% url 'Do_an_01:category' as category %}
+
+<!-- Topbar Start -->
+<div class="container-fluid d-none d-lg-block">
+    <div class="row align-items-center bg-dark px-lg-5">
+        <div class="col-lg-9">
+            <nav class="navbar navbar-expand-sm bg-dark p-0">
+                <ul class="navbar-nav ml-n2">
+                    <li class="nav-item border-right border-secondary">
+                        <a class="nav-link text-body small" id="date" href="#"></a>
+                    </li>
+                    <li class="nav-item border-right border-secondary mn">
+                        <a class="nav-link text-body small" href="{% url 'Do_an_01:contact' %}">Liên hệ</a>
+                    </li>
+                    <li class="nav-item mn">
+                        {% if session_status %}
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle text-body small "
+                                   data-toggle="dropdown">{{ session_info.ho }} {{ session_info.ten }}</a>
+                                <div class="dropdown-menu ">
+                                    <a href="{% url 'customers_hdg:my_account' %}"
+                                       class="dropdown-item text-body small">Thông tin người dùng</a>
+                                    <a href="{% url 'customers_hdg:logout' %}" class="dropdown-item  text-body small">Thoát</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a class="nav-link text-body small" href="{% url 'customers_hdg:login' %}">Đăng nhập</a>
+                        {% endif %}
+                    </li>
+                </ul>
+
+            </nav>
+
+        </div>
+
+    </div>
+    <div class="row align-items-center bg-white py-3 px-lg-5">
+        <div class="col-lg-5">
+            <a href="{% url 'Do_an_01:index' %}" class="navbar-brand p-0 d-none d-lg-block">
+                <h1 class="m-0 display-4 text-uppercase text-primary">PHÚ YÊN<span
+                        class="text-secondary">-NEWS</span></h1>
+            </a>
+        </div>
+        <div  class="carousel slide col-lg-7 text-center text-lg-right" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#" data-slide-to="0" class="active"></li>
+                <li data-target="#" data-slide-to="1"></li>
+                <li data-target="#" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" >
+                <div class="carousel-item active">
+                    <a href="https://vnpt.vn"><img src={% static 'img/dl4.png' %} alt=""></a>
+                </div>
+                <div class="carousel-item">
+                    <a href="https://vnpt.com.vn/di-dong"><img src={% static 'img/dl5.png' %} alt=""></a>
+                </div>
+                <div class="carousel-item">
+                    <a href="https://vnpt.com.vn/goi-home"><img src={% static 'img/dl6.png' %} alt=""></a>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#" role="button" data-slide="prev" >
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#" role="button" data-slide="next" >
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Topbar End -->
+<!-- Navbar Start -->
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-2 py-lg-0 px-lg-5">
+        <a href="{% url 'Do_an_01:index' %}" class="navbar-brand d-block d-lg-none">
+            <h1 class="m-0 display-4 text-uppercase text-primary">PHÚ YÊN<span
+                    class="text-white font-weight-normal">-NEWS</span></h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between px-0 px-lg-3" id="navbarCollapse">
+            <div class="navbar-nav mr-auto py-0 text-primary ">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item mn">
+                        <a class=" nav-link mn" href="{% url 'Do_an_01:index' %}">Trang chủ <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item mn">
+                        <a class="nav-item nav-link mn" href="{% url 'Do_an_01:category' 1 %}">Nhà đất bán <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item mn">
+                        <a class="nav-item nav-link mn" href="{% url 'Do_an_01:category' 2 %}">Nhà đất cho thuê <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item mn">
+                        <a class="nav-item nav-link mn" href="{% url 'Do_an_01:category' 8 %}">Du lịch <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    {#                    <a href="{% url 'Do_an_01:single'  11 %}" class="nav-item nav-link">Tin tức</a>#}
+                    <div class="nav-item dropdown ">
+                        <li class="nav-item mn">
+                            <a class="nav-item nav-link mn" href="{% url 'Do_an_01:category' 7 %}">Dự án</a>
+                        </li>
+                    </div>
+                    <li class="nav-item mn">
+                        <a class="nav-item nav-link mn" href="{% url 'Do_an_01:contact' %}">Liên hệ <span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+            <form class="form-inline" method="get" action="{% url 'Do_an_01:search' %}">
+                <div class="input-group ml-auto d-none d-lg-flex" style="width: 100%; max-width: 300px;">
+                    <input type="text" class="form-control border-0" name="keyword" value="{{ keyword }}"
+                           placeholder="Tìm kiếm" autocomplete="off" required="required">
+                    <div class="input-group-append">
+                        <button class="input-group-text bg-primary text-dark border-0 px-3">TÌM KIẾM
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+</div>
+<!-- Navbar End -->
+{% block content %}
+
+
+
+{% endblock %}
+
+<!-- Footer Start -->
+<div class="container-fluid bg-dark pt-5 px-sm-3 px-md-5 mt-5">
+    <div class="row py-4">
+        <div class="col-lg-3 col-md-6 mb-5">
+            <h5 class="mb-4 text-white text-uppercase font-weight-bold">Liên lạc</h5>
+            <p class="font-weight-medium"><i class="fa fa-map-marker-alt mr-2"></i>Phường 12, Quận Gò Vấp, TP. Hồ Chí
+                Minh</p>
+            <p class="font-weight-medium"><i class="fa fa-phone-alt mr-2"></i>0982 98 67 68</p>
+            <p class="font-weight-medium"><i class="fa fa-envelope mr-2"></i>huynhdonggiang@gmail.com</p>
+            <div class="d-flex justify-content-start">
+                <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-lg btn-secondary btn-lg-square mr-2" href="#"><i class="fab fa-instagram"></i></a>
+                <a class="btn btn-lg btn-secondary btn-lg-square" href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5">
+            <h5 class="mb-4 text-white text-uppercase font-weight-bold">Tin tức phổ biến</h5>
+            {% for story in story_newest_3 %}
+                <div class="mb-3">
+                    <a class="small text-body font-weight-medium"
+                       href="{% url 'Do_an_01:single' story.pk %}">{{ story.name|truncatewords:8 }}</a>
+                </div>
+            {% endfor %}
+
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5">
+            <h5 class="mb-4 text-white text-uppercase font-weight-bold">Thể loại</h5>
+            <div class="m-n1">
+                {% for list_category in list_category %}
+                    <a href="{% url 'Do_an_01:category'  list_category.pk %}"
+                       class="btn btn-sm btn-outline-secondary m-1">{{ list_category.name|truncatewords:10 }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-5">
+            <h5 class="mb-4 text-white text-uppercase font-weight-bold">ẢNH FLICKR</h5>
+            <div class="row">
+                <div class="col-4 mb-3">
+                    <a href=""><img class="w-100" src={% static 'img/news-110x110-1.jpg' %} alt=""></a>
+                </div>
+                <div class="col-4 mb-3">
+                    <a href=""><img class="w-100" src={% static 'img/news-110x110-2.jpg' %} alt=""></a>
+                </div>
+                <div class="col-4 mb-3">
+                    <a href=""><img class="w-100" src={% static 'img/news-110x110-3.jpg' %} alt=""></a>
+                </div>
+                <div class="col-4 mb-3">
+                    <a href=""><img class="w-100" src={% static 'img/news-110x110-4.jpg' %} alt=""></a>
+                </div>
+                <div class="col-4 mb-3">
+                    <a href=""><img class="w-100" src={% static 'img/news-110x110-5.jpg' %} alt=""></a>
+                </div>
+                <div class="col-4 mb-3">
+                    <a href=""><img class="w-100" src={% static 'img/news-110x110-1.jpg' %} alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid py-4 px-sm-3 px-md-5" style="background: #111111;">
+    <p class="m-0 text-center">&copy; <a href="#">Website</a>. Đã đăng ký bản quyền thiết ký bởi <a
+            href="https://vnpt.vn">Huỳnh Đông Giang</a></p>
+</div>
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary btn-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+{% block script %}
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src={% static 'lib/easing/easing.min.js' %}></script>
+    <script src={% static 'lib/owlcarousel/owl.carousel.min.js' %}></script>
+
+    <!-- Template Javascript -->
+    <script src={% static 'js/main.js' %}></script>
+    <script>
+        window.onload = setInterval(clock, 1000);
+
+        function clock() {
+            var d = new Date();
+            var curHour = d.getHours();
+            var curMinu = d.getMinutes();
+            var curSecon = d.getSeconds();
+            var date = d.getDate();
+            var year = d.getFullYear();
+            var month = d.getMonth();
+            var monthArr = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+            month = monthArr[month];
+            document.getElementById("date").innerHTML = "Ngày " + date + "/" + month + "/" + year + "-" + curHour + ":" + curMinu + ":" + curSecon;
+        }
+    </script>
+{% endblock %}
+</body>
+
+</html>

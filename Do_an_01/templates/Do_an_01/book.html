@@ -1,0 +1,72 @@
+{% extends 'Do_an_01/Masterbase.html' %}
+{% block title_tab %}{{ book.name }}{% endblock %}
+{% load static %}
+{% block content %}
+
+    <!-- News With Sidebar Start -->
+    <div class="container-fluid" style="margin-top: 20px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- News Detail Start -->
+                    <div class="position-relative mb-3">
+                        <div class="bg-white border border-top-0 p-4">
+                            <div class="mb-3">
+                                <a class="text-body" href="">Ngày đăng tin: {{ book.public_day }}</a>
+                            </div>
+                            <h4 class="mb-3 text-secondary text-uppercase font-weight-bold">{{ book.name }}</h4>
+                            <p>{{ book.content|safe }}</p>
+                        </div>
+                        <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
+                            <div class="d-flex align-items-center">
+                                <img class="rounded-circle mr-2" src={% static 'img/user-a.png' %} width="25"
+                                     height="25" alt="">
+                                <span>Tác giả: {{ book.author }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+
+                    <!-- Ads Start -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">Quảng cáo</h4>
+                        </div>
+                        <div class="bg-white text-center border border-top-0 p-3">
+                            <a href="https://vnpt.vn"><img class="img-fluid" src={% static 'img/news-800x500-2.jpg' %} alt=""></a>
+                        </div>
+                    </div>
+                    <!-- Ads End -->
+
+                    <!-- Popular News Start -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">SÁCH LIÊN QUAN</h4>
+                        </div>
+                        <div class="bg-white border border-top-0 p-3">
+                            {% for book in sach_hay %}
+                                <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
+                                    <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
+                                        <div class="mb-2">
+                                            <a class="text-body" href=""><small>J{{ book.public_day }}</small></a>
+                                        </div>
+                                        <a class="h6 m-0 text-secondary  font-weight-bold"
+                                           href="{% url 'Do_an_01:book' book.pk %}">{{ book.name|truncatewords:10 }}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- News With Sidebar End -->
+{% endblock %}
+
+
+
+

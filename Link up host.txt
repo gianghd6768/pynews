@@ -1,0 +1,4 @@
+http://cp.laptrinhpython.net:9001/
+TK: k267pyhdgiang
+MK: giang12345
+Cho phép truy cập gửi gmail: https://accounts.google.com/DisplayUnlockCaptcha

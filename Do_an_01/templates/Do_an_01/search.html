@@ -1,0 +1,170 @@
+{% extends 'Do_an_01/Masterbase.html' %}
+{% block title_tab %}Search{% endblock %}
+{% load static %}
+{% block content %}
+    <!-- News With Sidebar Start -->
+    <div class="container-fluid mt-5 pt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+
+                        <div class="col-12">
+                            <div class="section-title">
+                                <h4 class="m-0 text-uppercase font-weight-bold">Kết quả tìm kiếm</h4>
+                            </div>
+                        </div>
+                        {% if story_list|length > 0 %}
+                            {% for story in page_obj %}
+                                <div class="col-lg-6">
+                                    <div class="position-relative mb-3">
+                                        <img class="img-fluid w-100" src="{{ story.image.url }}"
+                                             style="object-fit: cover; height: 250px; width: 250px">
+                                        <div class="bg-white border border-top-0 p-4" style="height: 160px; ">
+                                            <div class="mb-2">
+                                                <a class="text-body" href=""><small>{{ story.public_day }}</small></a>
+                                            </div>
+                                            <a class="h6 d-block mb-3 text-secondary  font-weight-bold"
+                                               href="{% url 'Do_an_01:single' story.pk %}">{{ story.name|truncatewords:10 }}</a>
+                                            <p class="m-0">{{ story.content|safe|truncatewords:12 }}</p>
+                                        </div>
+                                        <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
+                                            <div class="d-flex align-items-center" style="height:5px;">
+                                                <img class="rounded-circle mr-2"
+                                                     src={% static 'img/user.jpg' %} width="25" height="25" alt="">
+                                                <small>{{ story.author }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% elif book_list|length > 0 %}
+                            {% for book in page_obj_book %}
+                                <div class="col-lg-6">
+                                    <div class="position-relative mb-3">
+                                        <img class="img-fluid w-100" src="{{ book.image.url }}"
+                                             style="object-fit: cover; height: 250px; width: 250px">
+                                        <div class="bg-white border border-top-0 p-4" style="height: 160px; ">
+                                            <div class="mb-2">
+                                                <a class="text-body" href=""><small>{{ book.public_day }}</small></a>
+                                            </div>
+                                            <a class="h6 d-block mb-3 text-secondary  font-weight-bold"
+                                               href="{% url 'Do_an_01:book' book.pk %}">{{ book.name|truncatewords:10 }}</a>
+                                            <p class="m-0">{{ book.content|safe|truncatewords:12 }}</p>
+                                        </div>
+                                        <div class="d-flex justify-content-between bg-white border border-top-0 p-4">
+                                            <div class="d-flex align-items-center" style="height:5px;">
+                                                <img class="rounded-circle mr-2"
+                                                     src={% static 'img/user.jpg' %} width="25" height="25" alt="">
+                                                <small>{{ book.author }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                         {% else %}
+                            <p>Không tìm thấy kết quả</p>
+                        {% endif %}
+                    </div>
+                    <div class="row mx-0">
+                        <div class="col-12 text-center pb-4 pt-4 font_dg">
+                            {% if page_obj.has_previous %}
+                                <a class="btn_mange_pagging"
+                                   href="?page=1{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}">&laquo;
+                                    Về trang đầu</a>
+
+                                <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}"
+                                   class="btn_mange_pagging"><i
+                                        class="fa fa-long-arrow-left"></i>&nbsp;&laquo; Trước</a>
+                            {% endif %}
+                            <span class="btn_pagging">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}"
+                                   class="btn_mange_pagging">Tiếp   &raquo;<i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp; </a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.keyword %}&keyword={{ request.GET.keyword }}{% endif %}"
+                                   class="btn_mange_pagging">Trang cuối &raquo;</a>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4">
+                    <!-- Social Follow Start -->
+
+                    <!-- Social Follow End -->
+
+                    <!-- Ads Start -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">QUẢNG CÁO</h4>
+                        </div>
+                        <div class="bg-white text-center border border-top-0 p-3">
+                            <a href="https://vnpt.vn"><img class="img-fluid"
+                                                           src={% static 'img/news-800x500-2.jpg' %} alt=""></a>
+                        </div>
+                    </div>
+                    <!-- Ads End -->
+
+                    <!-- Popular News Start -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">TIN TỨC</h4>
+                        </div>
+                        <div class="bg-white border border-top-0 p-3">
+                            {% for story in story_newest_14 %}
+                                <div class="d-flex align-items-center bg-white mb-3" style="height: 110px;">
+                                    <div class="w-100 h-100 px-3 d-flex flex-column justify-content-center border border-left-0">
+                                        <div class="mb-2">
+                                            <a class="text-body" href=""><small>J{{ story.public_day }}</small></a>
+                                        </div>
+                                        <a class="h6 m-0 text-secondary font-weight-bold"
+                                           href="{% url 'Do_an_01:single' story.pk %}">{{ story.name|truncatewords:10 }}</a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Popular News End -->
+
+                    <!-- Newsletter Start -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">Newsletter</h4>
+                        </div>
+                        <div class="bg-white text-center border border-top-0 p-3">
+                            <p>Aliqu justo et labore at eirmod justo sea erat diam dolor diam vero kasd</p>
+                            <div class="input-group mb-2" style="width: 100%;">
+                                <input type="text" class="form-control form-control-lg" placeholder="Your Email">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary font-weight-bold px-3">Sign Up</button>
+                                </div>
+                            </div>
+                            <small>Lorem ipsum dolor sit amet elit</small>
+                        </div>
+                    </div>
+                    <!-- Newsletter End -->
+
+                    <!-- Tags Start -->
+                    <div class="mb-3">
+                        <div class="section-title mb-0">
+                            <h4 class="m-0 text-uppercase font-weight-bold">Thể loại</h4>
+                        </div>
+                        <div class="bg-white border border-top-0 p-3">
+                            <div class="d-flex flex-wrap m-n1">
+                                {% for list_category in list_category %}
+                                    <a href="" class="btn btn-sm btn-outline-secondary m-1">{{ list_category.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tags End -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- News With Sidebar End -->
+
+{% endblock %}
+
+
+

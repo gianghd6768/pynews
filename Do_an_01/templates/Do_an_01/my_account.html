@@ -1,0 +1,109 @@
+{% extends 'Do_an_01/Masterbase.html' %}
+{% load static %}
+{% load tz %}
+{% block content %}
+    <!-- My Account Start -->
+    <div class="my-account" style="margin-top: 20px">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+                        <a class="nav-link active" id="dashboard-nav" data-toggle="pill" href="#dashboard-tab"
+                           role="tab"><i class="fa fa-user"></i> Tài khoản của tôi</a>
+                        <a class="nav-link" href="/logout/"><i class="fa fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="dashboard-tab" role="tabpanel"
+                             aria-labelledby="dashboard-nav">
+                            <div class="container">
+                                <div class="section-title border-right-0 mb-0">
+                                <h4 class="mb-0 text-uppercase">Hồ sơ của {{ customer.ho }} {{ customer.ten }}</h4>
+                            </div>
+                                <form method="post" style="margin-top: 10px">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {{ update_msg|safe }}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><small><strong>{{ form.email.label }}</strong></small></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            {{ form.email }}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><small><strong>{{ form.ho.label }}</strong></small></label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form.ho }}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><small><strong>{{ form.ten.label }}</strong></small></label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form.ten }}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><small><strong>{{ form.dien_thoai.label }}</strong></small></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            {{ form.dien_thoai }}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><small><strong>{{ form.dia_chi.label }}</strong></small></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            {{ form.dia_chi }}
+                                        </div>
+                                        <div class="col-md-12 mb-3 text-center">
+                                            <button class="btn-primary" id="btnCapNhat" type="submit" value="btnCapNhat"
+                                                    style="width:200px; margin-top: 10px" name="btnCapNhat">Cập nhật thông tin
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="section-title border-right-0 mb-0">
+                                    <h4 class="m-0 text-uppercase font-weight-bold">Đổi mật khẩu</h4>
+                                </div>
+                                <form method="POST" style="margin-top: 10px">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {{ doimk_msg|safe }}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><small><strong>{{ form_mk.mat_khau.label }}:</strong></small></label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            {{ form_mk.mat_khau }}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label><small><strong>{{ form_mk.mat_khau_moi.label }}:</strong></small></label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_mk.mat_khau_moi }}
+                                        </div>
+                                         <div class="col-md-2">
+                                            <label><small><strong>{{ form_mk.xac_nhan_mat_khau.label }}:</strong></small></label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_mk.xac_nhan_mat_khau }}
+                                        </div>
+                                        <div class="col-md-12 text-center">
+                                            <button class="btn-primary" id="btnMk" type="submit" value="btnMk"
+                                                    style="width:200px; margin-top: 10px" name="btnMk">Đổi mật khẩu
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- My Account End -->
+{% endblock %}
